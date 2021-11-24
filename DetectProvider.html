@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
+<script type="text/javascript">
+function log(msg) {
+  text = document.getElementById("console").innerHTML;
+  document.getElementById("console").innerHTML = text + "<br />" + msg;
+}
+
+async function detectProvider() {
+  const provider = await detectEthereumProvider()
+
+  if (provider) {
+    // handle provider
+    log("Ethereum provider detected!");
+    const chainId = await provider.request({method: 'eth_chainId'});
+    log("Chain ID: " + chainId);
+  } else {
+    // handle no provider
+    log("Not  detected!");
+  }
+}
+
+</script>
+<body onload="detectProvider()">
+
+<p id="console"></p>
+
+</body>
+</html>
